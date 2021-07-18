@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.quiz.ui.characters.QuestionItemViewModel" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/blog_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:padding="12dp">
+
+        <TextView
+
+            android:id="@+id/qnoTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.questionNumberText}"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/marksTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.marksText}"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <katex.hourglass.in.mathlib.MathView
+            android:id="@+id/questionMTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/qnoTv"
+            app:layout_constraintTop_toBottomOf="@+id/qnoTv"
+            app:setClickable="true"
+            app:setText="loading question..."
+            app:setTextColor="@color/colorPrimaryDark"
+            app:setTextSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility='@{viewModel.question.type.equals("MC") ? View.GONE : View.VISIBLE}'
+            app:layout_constraintTop_toBottomOf="@id/questionMTv">
+
+            <EditText
+                android:id="@+id/answereEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_rect_background"
+                android:fontFamily="sans-serif-condensed"
+                android:hint="write answere here"
+                android:inputType="textMultiLine"
+                android:maxLines="8"
+                android:minLines="4"
+                android:onTextChanged="@{viewModel.onTextChanged}"
+                android:padding="8dp"
+                android:scrollbars="vertical"
+                android:text='@{viewModel.answers != "Not attempted" ? viewModel.answers: ""}' />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:padding="16dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_gravity="right"
+                    android:padding="4dp"
+                    android:scaleType="centerInside"
+
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_image_24" />
+
+                <ImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+
+                    android:layout_marginBottom="20dp"
+                    android:onClick="pickProfileImage"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_attachment_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:visibility='@{viewModel.question.type.equals("SA") ? View.GONE : View.VISIBLE}'
+            app:layout_constraintTop_toBottomOf="@id/questionMTv">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/option1Cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/rounded_rect_background"
+                android:clipToPadding="false">
+
+                <katex.hourglass.in.mathlib.MathView
+                    android:id="@+id/option1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="4dp"
+                    app:setClickable="true"
+                    app:setText="loading option1..."
+                    app:setTextColor="@color/colorPrimaryDark"
+                    app:setTextSize="12sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/option2Cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/rounded_rect_background"
+
+                >
+
+                <katex.hourglass.in.mathlib.MathView
+                    android:id="@+id/option2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="4dp"
+                    android:paddingEnd="8dp"
+                    app:setClickable="true"
+                    app:setText="loading option2..."
+                    app:setTextColor="@color/colorPrimaryDark"
+                    app:setTextSize="12sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/option3Cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/rounded_rect_background">
+
+                <katex.hourglass.in.mathlib.MathView
+                    android:id="@+id/option3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="4dp"
+                    android:paddingEnd="8dp"
+                    app:setClickable="true"
+                    app:setText="loading option3..."
+                    app:setTextColor="@color/colorPrimaryDark"
+                    app:setTextSize="12sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/option4Cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/rounded_rect_background">
+
+                <katex.hourglass.in.mathlib.MathView
+                    android:id="@+id/option4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="4dp"
+                    app:setClickable="true"
+                    app:setText="loading option4..."
+                    app:setTextColor="@color/colorPrimaryDark"
+                    app:setTextSize="12sp" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

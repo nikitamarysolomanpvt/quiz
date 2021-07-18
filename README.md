@@ -1,4 +1,4 @@
-# RickAndMorty - Android Architecture Sample
+#Quiz - Android Architecture Sample
 
 <img align="right" src="https://github.com/sberoch/RickAndMorty-AndroidArchitectureSample/raw/master/assets/characters.jpg" width="200">
 
